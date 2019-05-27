@@ -8,16 +8,16 @@ body {
     font-size: 1.6rem;
 }
 
-.container {
+/* .container {
     display: flex;
     align-items: center;
     justify-content: center;
-    /* max-width: 75%; */
+    max-width: 75%;
     margin: auto;
 
     flex-wrap: wrap;
 
-}
+} */
 
 
 
@@ -29,8 +29,9 @@ header {
 }
 
 h1 {
-    font-size: 3rem;
-    text-align: center;
+    font-size: 12rem;
+    line-height: 10rem;
+    text-align: left;
     margin: 2rem 0;
 }
 
@@ -40,7 +41,8 @@ h1 {
 }
 
 .form-section h2 {
-    font-size: 2rem;
+    font-size: 3rem;
+    font-weight: bold;
     margin-bottom: 2rem;
 }
 
@@ -58,6 +60,17 @@ h1 {
 .flex-outer>li>label {
     flex: 1 0 12rem;
     max-width: 22rem;
+    font-weight: bold;
+}
+
+.flex-outer li p {
+    flex: 1 0 100%;
+    font-weight: bold;
+}
+
+.flex-inner {
+    /* align-self: center;  */
+    justify-content: flex-start;
 }
 
 .flex-outer>li>label+*,
@@ -67,7 +80,7 @@ flex-inner {
 
 .flex-inner label,
 .flex-inner input {
-    margin-right: 3rem;
+    margin-right: 1.5rem;
 }
 
 .form-section form {
@@ -76,8 +89,33 @@ flex-inner {
     align-items: center;
 }
 
+.form-section select {
+    max-width: 58%;
+}
+
 .form-section button {
     border: none;
     padding: 1rem 2rem;
     text-transform: uppercase;
+}
+
+.results-top-return {
+    position: fixed;
+    top: 0;
+}
+
+.results-top-return h3 {
+    
+}
+
+@media screen and (min-width: 905px) {
+    .container {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        height: 100vh;
+        padding-top: 15vh;
+        margin: auto;
+        flex-wrap: wrap;
+    }
 }
