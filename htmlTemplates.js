@@ -1,22 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type="text/css" href="reset.css">
-    <link rel="stylesheet" href="style.css">
-    <title>News Bias</title>
-</head>
-
-<body>
-    <!-- <div class="container-results">
-        <header role="header">
+const TEMPLATES = {
+    startPage: `
+    <div class="container-startpage">
+         <header role="header">
             <h1>News Bias</h1>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam ea officiis dolor quas ex adipisci,
                 fugit, ad tempora reprehenderit sint iusto tenetur? Pariatur, harum nemo.</p>
-        </header>
+        </header> 
         <main role="main">
             <section class="form-section" role="region">
                 <form id="newsSearchForm">
@@ -305,13 +294,11 @@
                     </ul>
                     <button type="submit">Search News</button>
                 </form>
-            </section>
-        </main>
-    </div>
-
-
-
-    <main>
+            </section> 
+            </main>
+        </div>`,
+    resultsPage: `
+        <main>
         <section>
             <div class="results-top-return">
                 <h3>Page Title</h3>
@@ -383,21 +370,12 @@
                     </div>
                 </div>
         </section>
-    </main>
-
-
-    </div>
+    </main>`,
+    noResultsPage: `
     <div class="no-results">
-                <p>No Search Results Found</p>
-                <button class="new-search-btn">New Search</button>
-            </div>
-    </main>
-    </div> -->
+    <p>No Search Results Found</p>
+    <button class="new-search-btn">New Search</button>
+</div>`
 
-    <script src="htmlTemplates.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="app.js"></script>
-</body>
 
-</html>
+}
