@@ -1,7 +1,7 @@
-const TEMPLATES = {
+const STORE = {
     startPage: `
     <div class="container-startpage">
-         <header role="header">
+        <header role="header">
             <h1>News Bias</h1>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam ea officiis dolor quas ex adipisci,
                 fugit, ad tempora reprehenderit sint iusto tenetur? Pariatur, harum nemo.</p>
@@ -13,19 +13,20 @@ const TEMPLATES = {
                     <ul class="flex-outer">
                         <li>
                             <label for="term-input">Search Term:</label>
-                            <input type="text" name="term-input" id="term-input" required>
+                            <input type="text" name="term-input" id="term-input" value="Donald Trump" required>
                         </li>
                         <li>
                             <label for="start-date">Start Date:</label>
-                            <input type="date" name="start" id="start-date" required>
+                            <input type="date" name="start" id="start-date" value="2019-04-05" required>
                         </li>
                         <li>
                             <label for="end-date">End Date:</label>
-                            <input type="date" name="end" id="end-date" required>
+                            <input type="date" name="end" id="end-date" value="2019-05-04" required>
                         </li>
                         <li>
                             <label for="countries">Country:</label>
                             <select name="countries" id="countries" required>
+                                <option value="US">United States</option>
                                 <option value="AF">Afghanistan</option>
                                 <option value="AX">Åland Islands</option>
                                 <option value="AL">Albania</option>
@@ -261,7 +262,6 @@ const TEMPLATES = {
                                 <option value="UA">Ukraine</option>
                                 <option value="AE">United Arab Emirates</option>
                                 <option value="GB">United Kingdom</option>
-                                <option value="US">United States</option>
                                 <option value="UM">United States Minor Outlying Islands</option>
                                 <option value="UY">Uruguay</option>
                                 <option value="UZ">Uzbekistan</option>
@@ -307,75 +307,24 @@ const TEMPLATES = {
         </section>
         <section>
             <div class="results-containers">
-                <div class="result-container">
-                    <div class="result">
-                        <div>
-                            <p class="news-source">News Source</p>
-                            <p class="article-count">Articles: 1234</p>
-                        </div>
-                        <div class="sent-circle">
-                            <p class="sentiment-score">88</p>
-                        </div>
-                    </div>
-                    <div class="headlines-dropdown">
-                        <a href="#">GOP rep: Dissemination of doctored Pelosi videos "concerning"</a>
-                        <a href="#">Tornado in Oklahoma kills at least two, damages property</a>
-                        <a href="#">GOP Senator Splits With Trump On North Korea: 'Those Strikes Are Disturbing'</a>
-                        <a href="#">One thing the Cannes Film Festival jury got right: Bong Joon-ho's 'Parasite'
-                            victory</a>
-                    </div>
-                </div>
-                <div class="result-container">
-                    <div class="result">
-                        <div>
-                            <p class="news-source">News Source</p>
-                            <p class="article-count">Articles: 1234</p>
-                        </div>
-                        <div class="sent-circle">
-                            <p class="sentiment-score">88</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="result-container">
-                    <div class="result">
-                        <div>
-                            <p class="news-source">News Source</p>
-                            <p class="article-count">Articles: 1234</p>
-                        </div>
-                        <div class="sent-circle">
-                            <p class="sentiment-score">88</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="result-container">
-                    <div class="result">
-                        <div>
-                            <p class="news-source">News Source</p>
-                            <p class="article-count">Articles: 1234</p>
-                        </div>
-                        <div class="sent-circle">
-                            <p class="sentiment-score">88</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="result-container">
-                    <div class="result">
-                        <div>
-                            <p class="news-source">News Source</p>
-                            <p class="article-count">Articles: 1234</p>
-                        </div>
-                        <div class="sent-circle">
-                            <p class="sentiment-score">88</p>
-                        </div>
-                    </div>
-                </div>
+                
+            </div>
         </section>
     </main>`,
     noResultsPage: `
     <div class="no-results">
     <p>No Search Results Found</p>
     <button class="new-search-btn">New Search</button>
-</div>`
-
-
+</div>`,
+    searchCriteria: { apiKey: 'e5709737585b4dde9087c53a6f445c8a',
+    },
+    displayContent: ''
 }
+
+// <div class="headlines-dropdown">
+//                         <a href="#">GOP rep: Dissemination of doctored Pelosi videos "concerning"</a>
+//                         <a href="#">Tornado in Oklahoma kills at least two, damages property</a>
+//                         <a href="#">GOP Senator Splits With Trump On North Korea: 'Those Strikes Are Disturbing'</a>
+//                         <a href="#">One thing the Cannes Film Festival jury got right: Bong Joon-ho's 'Parasite'
+//                             victory</a>
+//                     </div>
