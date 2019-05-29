@@ -84,7 +84,7 @@ function formatSourceName(object) {
         }
     })
 
-    console.log(returnObj);
+    return returnObj;
 }
 
 function postSentimentRequest(documents) {
@@ -98,8 +98,32 @@ function postSentimentRequest(documents) {
             body: `${documents}`
         })
         .then(response => response.json())
-        .then(response => formatSourceName(response));
+        .then(response => {
+            const sentScoreSourcesArr = formatSourceName(response);
+            getFrequency(sentScoreSourcesArr);    
+        }
+            );
 
+}
+
+function getFrequency(arr) {
+    freqObj = {}
+    arr.forEach(item => {
+        if (Object.keys(freqObj).some(property => property === item.id)) {
+            freqObj[item.id] = {
+                'source': item.id,
+                'score': parseFloat(item.score) + parseFloat(freqObj[item.id].score),
+                'frequency': freqObj[item.id].frequency += 1
+            }
+        } else {
+            freqObj[item.id] = {
+                'source': item.id,
+                'score': parseFloat(item.score),
+                'frequency': 1
+            }
+        }
+    })
+    console.log(freqObj);
 }
 
 function transformNewsArticles(articles) {
@@ -133,21 +157,6 @@ function appendResults(sources) {
         </div>`)
     })
 }
-
-function getFrequency(arr) {
-    freqObj = {}
-    arr.forEach(item => {
-        if (Object.keys(freqObj).some(property => property === item)) {
-            freqObj[item]++
-        } else {
-            freqObj[item] = 1;
-        }
-    })
-    return freqObj;
-}
-
-
-
 
 function formatQueryParams(params) {
     const queryItems = Object.keys(params)
