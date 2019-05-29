@@ -44,10 +44,10 @@ function addFormSubmissionListener() {
         getNewsData(params);
         console.log("Form Submitted");
         // if (result) {
-            RENDER.startPage = false;
-            RENDER.noResultsPage = false;
-            RENDER.resultsPage = true;
-            render();
+        RENDER.startPage = false;
+        RENDER.noResultsPage = false;
+        RENDER.resultsPage = true;
+        render();
         // } else {
         //     RENDER.startPage = false;
         //     RENDER.noResultsPage = true;
@@ -58,17 +58,67 @@ function addFormSubmissionListener() {
 }
 
 function getNewsData(params) {
+    console.log("getNewsData ran")
     const url = 'https://newsapi.org/v2/everything?' + params
     fetch('news.json')
         .then(response => response.json())
         .then(response => {
-            const sources = response.articles.map(article => article.source.name);
-            const frequency = getFrequency(sources);
-            appendResults(frequency);
+            console.log(response)
+            const transformedNewsArticles = transformNewsArticles(response.articles);
+            postSentimentRequest(transformedNewsArticles);
+
+            ;
+
+            // const sources = response.articles.map(article => article.source.name);
+            // const frequency = getFrequency(sources);
+            // appendResults(frequency);
         })
 }
 
-function appendResults(sources){
+function formatSourceName(object) {
+
+    const returnObj = object.documents.map(document => {
+        return {
+            id: `${document.id.replace(/[0-9]/g,"")}`,
+            score: `${document.score}`
+        }
+    })
+
+    console.log(returnObj);
+}
+
+function postSentimentRequest(documents) {
+    fetch("https://eastus.api.cognitive.microsoft.com/text/analytics/v2.1/sentiment", {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Ocp-Apim-Subscription-Key": "54e4071cbabc4bc89e65834ee3865d3a"
+            },
+            body: `${documents}`
+        })
+        .then(response => response.json())
+        .then(response => formatSourceName(response));
+
+}
+
+function transformNewsArticles(articles) {
+    console.log(articles);
+    articlesObject = {
+        documents: []
+    };
+    articles.forEach((article, index) => {
+        console.log(index.toString());
+        articlesObject.documents.push({
+            language: "en",
+            id: `${article.source.name + index.toString()}`,
+            text: `${article.title}`
+        })
+    })
+    return JSON.stringify(articlesObject);
+}
+
+function appendResults(sources) {
     Object.keys(sources).forEach(source => {
         $('.results-containers').append(`<div class="result-container">
         <div class="result">
@@ -95,6 +145,8 @@ function getFrequency(arr) {
     })
     return freqObj;
 }
+
+
 
 
 function formatQueryParams(params) {
