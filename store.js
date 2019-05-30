@@ -2,9 +2,17 @@ const STORE = {
     startPage: `
     <div class="container-startpage">
         <header role="header">
-            <h1>News Bias</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam ea officiis dolor quas ex adipisci,
-                fugit, ad tempora reprehenderit sint iusto tenetur? Pariatur, harum nemo.</p>
+            <h1>Slanted<br>Headlines</h1>
+            <p>Ever wonder if a news source's headlines or content express a positive or negative sentiment for a given topic? Input a search term to find out.</p>
+            <p>
+            Each search makes a call to the News API and retrieves 100 articles or headlines related to the input search term. The articles or headlines are then passed to Microsoft's sentiment analysis API.
+            </p>
+            <p>
+            Microsoft's sentiment analysis API scores each article or headline for it's positive or negative sentiment. A low score indicates negative sentiment and a high score indicates positive sentiment. The score will be displayed as a value between 1 and 100.
+            </p>
+            <p>
+            Using the individually scored articles, this application calculates the average sentiment score for each news source returned from News API.</p>
+            </p>
         </header> 
         <main role="main">
             <section class="form-section" role="region">
@@ -13,8 +21,9 @@ const STORE = {
                     <ul class="flex-outer">
                         <li>
                             <label for="term-input">Search Term:</label>
-                            <input type="text" name="term-input" id="term-input" value="Donald Trump" required>
+                            <input type="text" name="term-input" id="term-input" placeholder="Search Term" required>
                         </li>
+                        <!--
                         <li>
                             <label for="start-date">Start Date:</label>
                             <input type="date" name="start" id="start-date" value="2019-04-05" required>
@@ -277,17 +286,19 @@ const STORE = {
                                 <option value="ZW">Zimbabwe</option>
                             </select>
                         </li>
+                        -->
                         <li>
                             <ul class="flex-inner">
                                 <p>Return Sentiment For:</p>
                                 <li>
-                                    <input type="radio" name="display-option" id="content" value="content" required>
-                                    <label for="content">Article Content</label>
+                                    <label for="content" class="radio">
+                                    <input type="radio" name="display-option" id="content" value="content" class="hidden" required><span class="label"></span>Article Content</label>
                                 </li>
 
                                 <li>
-                                    <input type="radio" name="display-option" id="headline" value="headline" required>
-                                    <label for="headline">Article Headline</label>
+                                    <label for="headline" class="radio">
+                                    <input type="radio" name="display-option" id="headline" value="headline" class="hidden" required><span class="label"></span>
+                                    Article Headline</label>
                                 </li>
                             </ul>
                         </li>
@@ -301,8 +312,10 @@ const STORE = {
         <main>
         <section>
             <div class="results-top-return">
+                <div class="top-bar">
                 <h3>Page Title</h3>
                 <button class="new-search-btn">New Search</button>
+                </div>
             </div>
         </section>
         <section>

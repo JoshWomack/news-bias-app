@@ -109,7 +109,7 @@ function postSentimentRequest(documents) {
             body: `${documents}`
         })
         .then(response => response.json())
-        .then(response => {
+        .then(response => {console.log(response);
             const sentScoreSourcesArr = formatSourceName(response);
             const newsSources = getFrequency(sentScoreSourcesArr);
             const sourcesFinal = getAverageScore(newsSources);
