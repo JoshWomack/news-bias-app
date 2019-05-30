@@ -1,9 +1,11 @@
+/*stores booleans used in determining which view to render*/
 const RENDER = {
     startPage: true,
     resultsPage: false,
     noResultsPage: false
 }
 
+/*checks values in RENDER to determine which view to render*/
 function render() {
     if (RENDER.startPage) {
         renderStartPage();
@@ -14,65 +16,74 @@ function render() {
     }
 }
 
+/*renders home page*/
 function renderStartPage() {
-    console.log("renderStartPage ran");
     $("body").html(STORE.startPage);
 }
 
+/*renders search results page*/
 function renderResultsPage() {
-    console.log("renderResultsPage ran");
     $("body").html(STORE.resultsPage);
 }
 
-
+/*renders message to indicated no results were returned from the search*/
 function renderNoResultsPage() {
-    console.log("renderNoResultsPage ran");
     $("body").html(STORE.noResultsPage);
 }
 
+/*calls functions that add event listners*/
 function addEventListeners() {
-    addFormSubmissionListener();
-    addNewSearchButtonListener();
-
+    handleFormSubmission();
+    handleNewSearchButtonClick();
+    handleArticleLinkExpansion();
 }
 
-function addFormSubmissionListener() {
+
+/*listens for submission of search form*/
+function handleFormSubmission() {
     $("body").on("submit", "#newsSearchForm", e => {
         e.preventDefault();
+        /*get and store values input in search form*/
         updateSearchValues();
+        /*pass input values to a function that formarts them as pararemeters for fetch request*/
         const params = formatQueryParams(STORE.searchCriteria);
+        /*passing formated parameters to function that calls the News API*/
         getNewsData(params);
-        console.log("Form Submitted");
-        // if (result) {
+
+        /*set render result page to true and other views to false in order to display results*/
         RENDER.startPage = false;
         RENDER.noResultsPage = false;
         RENDER.resultsPage = true;
         render();
-        // } else {
-        //     RENDER.startPage = false;
-        //     RENDER.noResultsPage = true;
-        //     RENDER.resultsPage = false;
-        //     render();
-        // }
     })
 }
 
+function handleNewSearchButtonClick() {
+    $("body").on("click", ".new-search-btn", e => {
+        RENDER.startPage = true;
+        RENDER.resultsPage = false;
+        RENDER.noResultsPage = false;
+        render();
+    })
+}
+
+function handleArticleLinkExpansion() {
+    $("body").on("click", ".result-container", e => {
+        $(e.currentTarget).children(':nth-child(2)').toggleClass("hidden");
+    })
+};
+
+
 function getNewsData(params) {
-    console.log("getNewsData ran")
     const url = 'https://newsapi.org/v2/everything?' + params
-    fetch('news.json')
+    fetch(url)
         .then(response => response.json())
         .then(response => {
-            console.log(response)
+            STORE.newsData = response;
             const transformedNewsArticles = transformNewsArticles(response.articles);
             postSentimentRequest(transformedNewsArticles);
-
-            ;
-
-            // const sources = response.articles.map(article => article.source.name);
-            // const frequency = getFrequency(sources);
-            // appendResults(frequency);
         })
+
 }
 
 function formatSourceName(object) {
@@ -100,10 +111,18 @@ function postSentimentRequest(documents) {
         .then(response => response.json())
         .then(response => {
             const sentScoreSourcesArr = formatSourceName(response);
-            getFrequency(sentScoreSourcesArr);    
-        }
-            );
+            const newsSources = getFrequency(sentScoreSourcesArr);
+            const sourcesFinal = getAverageScore(newsSources);
+            appendResults(sourcesFinal);
 
+        });
+}
+
+function getAverageScore(newsSources) {
+    newsSources.forEach(source => {
+        source.averageScore = ((source.score / source.frequency) * 100).toFixed();
+    })
+    return newsSources;
 }
 
 function getFrequency(arr) {
@@ -123,40 +142,72 @@ function getFrequency(arr) {
             }
         }
     })
-    console.log(freqObj);
+
+    const freqArr = Object.keys(freqObj).map(key => {
+        return freqObj[key];
+    });
+
+    return freqArr;
 }
 
 function transformNewsArticles(articles) {
-    console.log(articles);
+
     articlesObject = {
         documents: []
     };
     articles.forEach((article, index) => {
-        console.log(index.toString());
+
         articlesObject.documents.push({
             language: "en",
             id: `${article.source.name + index.toString()}`,
-            text: `${article.title}`
+            text: `${STORE.displayContent === "headline" ? article.title : article.content}`
         })
     })
     return JSON.stringify(articlesObject);
 }
 
+function getArticlesForDisplay(source) {
+    const articlesForLinks = STORE.newsData.articles.filter(article => {
+        return article.source.name === source.source;
+    });
+    return articlesForLinks.map(article => {
+        return `
+            <p><a href="${article.url}" target="_blank">${article.title}</a></p>
+        `
+    }).join("");
+
+}
+
 function appendResults(sources) {
-    Object.keys(sources).forEach(source => {
+    sources.forEach(source => {
+
+        let colorClass = "";
+        if (source.averageScore <= 33) {
+            colorClass = "red";
+        } else if (source.averageScore <= 66) {
+            colorClass = "yellow";
+        } else {
+            colorClass = "green";
+        }
+
         $('.results-containers').append(`<div class="result-container">
         <div class="result">
             <div>
-                <p class="news-source">${source}</p>
-                <p class="article-count">${sources[source]}</p>
+                <p class="news-source">${source.source}</p>
+                <p class="article-count">${source.frequency}</p>
             </div>
             <div class="sent-circle">
-                <p class="sentiment-score">88</p>
+                <p class="sentiment-score ${colorClass}">${source.averageScore}</p>
             </div>
         </div>
-        </div>`)
+            <div class="article-links hidden">
+                ${getArticlesForDisplay(source)}
+            </div>
+        </div>
+        `)
     })
-}
+};
+
 
 function formatQueryParams(params) {
     const queryItems = Object.keys(params)
@@ -169,18 +220,6 @@ function updateSearchValues() {
     STORE.searchCriteria.pagesize = '100';
     STORE.displayContent = $('input:radio[name=display-option]:checked').val();
 }
-
-function addNewSearchButtonListener() {
-    $("body").on("click", ".new-search-btn", e => {
-        RENDER.startPage = true;
-        RENDER.resultsPage = false;
-        RENDER.noResultsPage = false;
-        render();
-    })
-}
-
-
-
 
 
 $(function () {
