@@ -104,7 +104,7 @@ function postSentimentRequest(documents) {
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
-                "Ocp-Apim-Subscription-Key": "54e4071cbabc4bc89e65834ee3865d3a"
+                "Ocp-Apim-Subscription-Key": "5dd656b1577549979181960076a3ff8b"
             },
             body: `${documents}`
         })
