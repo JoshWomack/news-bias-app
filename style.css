@@ -179,6 +179,24 @@ flex-inner {
     top: 0;
 }
 
+.hidden {
+    display: none;
+
+}
+
+.red {
+    background-color: red;
+}
+
+.green {
+    background-color: green;
+}
+
+.yellow {
+    background-color: yellow;
+}
+
+
 @media screen and (min-width: 905px) {
     .container-startpage {
         display: flex;
@@ -209,4 +227,5 @@ flex-inner {
         flex-direction: row;
 
     }
+
 }
