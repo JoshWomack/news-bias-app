@@ -182,7 +182,7 @@ function getArticlesForDisplay(source) {
 function padScore(sources) {
     return sources.map(source => {
         if (source.averageScore.length === 1) source.averageScore = "0" + source.averageScore;
-        return source
+        return source;
     })
 }
 
