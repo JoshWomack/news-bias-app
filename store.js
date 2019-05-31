@@ -30,15 +30,18 @@ const STORE = {
                             <ul class="flex-inner">
                                 <p>Return Sentiment For:</p>
                                 <li>
+                                    <label for="headline" class="radio">
+                                    <input type="radio" name="display-option" id="headline" 
+                                    checked
+                                    value="headline" class="hidden" required><span class="label"></span>
+                                    Article Headline</label>
+                                </li>
+                                <li>
                                     <label for="content" class="radio">
                                     <input type="radio" name="display-option" id="content" value="content" class="hidden" required><span class="label"></span>Article Content</label>
                                 </li>
 
-                                <li>
-                                    <label for="headline" class="radio">
-                                    <input type="radio" name="display-option" id="headline" value="headline" class="hidden" required><span class="label"></span>
-                                    Article Headline</label>
-                                </li>
+                                
                             </ul>
                         </li>
                     </ul>
@@ -68,7 +71,8 @@ const STORE = {
     <p>No Search Results Found</p>
     <button class="new-search-btn">New Search</button>
 </div>`,
-    searchCriteria: { apiKey: 'e5709737585b4dde9087c53a6f445c8a',
+    searchCriteria: {
+        apiKey: 'e5709737585b4dde9087c53a6f445c8a',
     },
     displayContent: ''
 }

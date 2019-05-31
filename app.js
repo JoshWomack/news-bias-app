@@ -109,7 +109,8 @@ function postSentimentRequest(documents) {
             body: `${documents}`
         })
         .then(response => response.json())
-        .then(response => {console.log(response);
+        .then(response => {
+            console.log(response);
             const sentScoreSourcesArr = formatSourceName(response);
             const newsSources = getFrequency(sentScoreSourcesArr);
             const sourcesFinal = getAverageScore(newsSources);
@@ -178,8 +179,17 @@ function getArticlesForDisplay(source) {
 
 }
 
+function padScore(sources) {
+    return sources.map(source => {
+        if (source.averageScore.length === 1) source.averageScore = "0" + source.averageScore;
+        return source
+    })
+}
+
 function appendResults(sources) {
-    sources.forEach(source => {
+    const paddedSources = padScore(sources);
+    paddedSources.sort((a, b) => a.frequency > b.frequency ? -1 : 1);
+    paddedSources.forEach(source => {
 
         let colorClass = "";
         if (source.averageScore <= 33) {

@@ -46,6 +46,7 @@ header p {
     position: fixed;
     width: 100%;
     top: 0;
+    z-index: 15;
 }
 
 .top-bar {
@@ -88,7 +89,7 @@ header p {
     background-color: #151515;
     color: #fff;
     margin: 3rem 0;
-    box-shadow: 2px 5px 5px rgba(0,0,0,0.4);
+    box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.4);
     display: flex;
     flex-direction: column;
 }
@@ -152,7 +153,7 @@ header p {
 
 .sentiment-score {
     border-radius: 50%;
-    border: .3rem solid rgba(0,0,0,0.4);
+    border: .3rem solid rgba(0, 0, 0, 0.4);
     color: #151515;
     padding: 1.3rem;
     background-color: green;
@@ -203,7 +204,7 @@ header p {
     width: 100%;
     text-align: center;
     padding: 1rem 0;
-    box-shadow: 0px 2px 5px rgba(0,0,0,0.2);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .form-section button {
@@ -221,7 +222,7 @@ header p {
 }
 
 .form-section button:hover {
-    box-shadow: 0px 2px 15px rgba(0,0,0,0.4);
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.4);
     background-color: #40798C;
     transform: scale(1.07);
     cursor: pointer;
@@ -229,7 +230,7 @@ header p {
 
 .form-section button:active {
     transform: scale(1);
-    box-shadow: 0px 2px 10px rgba(0,0,0,0.4);
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.4);
 }
 
 .flex-outer {
@@ -297,6 +298,7 @@ flex-inner {
     border: .2rem solid #CCC5B9;
     border-radius: 100%;
 }
+
 .radio .label:after {
     content: '';
     position: absolute;
@@ -309,10 +311,11 @@ flex-inner {
     transform: scale(0);
 }
 
-input[type="radio"]:checked + .label {
+input[type="radio"]:checked+.label {
     border-color: rgb(73, 147, 172);
 }
-input[type="radio"]:checked + .label:after {
+
+input[type="radio"]:checked+.label:after {
     transform: scale(1);
     opacity: 1;
 }
