@@ -1,5 +1,5 @@
 /*global*/
-@import url('https://fonts.googleapis.com/css?family=Fauna+One|Playfair+Display:400,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lato|Roboto+Slab:700&display=swap');
 
 html {
     font-size: 62.5%;
@@ -7,9 +7,9 @@ html {
 
 body {
     font-size: 1.6rem;
-    font-family: 'Fauna One', serif;
+    font-family: 'Lato', serif;
     color: #252422;
-    background-color: #FFFCF2;
+    background-color: #DAEBEB;
 }
 
 header {
@@ -22,7 +22,7 @@ header {
 h1 {
     font-size: 8rem;
     font-weight: 700;
-    font-family: 'Playfair Display', serif;
+    font-family: 'Roboto Slab', serif;
     line-height: 7.5rem;
     text-align: left;
     margin: 2rem 0;
@@ -31,12 +31,13 @@ h1 {
 header p {
     line-height: 3rem;
     font-size: 1.7rem;
+    margin-bottom: 1.5rem;
 }
 
 .results-top-return {
-    background-color: #252422;
+    background-color: #151515;
     color: #fff;
-    font-family: 'Playfair Display', serif;
+    font-family: 'Roboto Slab', serif;
     font-size: 2.6rem;
     margin: 0 auto;
     padding: 1.5rem;
@@ -62,7 +63,7 @@ header p {
     color: #fff;
     text-transform: uppercase;
     border-radius: .2rem;
-    font-family: 'Fauna One', serif;
+    font-family: 'Lato', serif;
     font-size: 1.6rem;
     cursor: pointer;
 }
@@ -84,7 +85,8 @@ header p {
 
 .result-container {
     padding: 2rem;
-    background-color: rgb(230, 230, 230);
+    background-color: #151515;
+    color: #fff;
     margin: 3rem 0;
     box-shadow: 2px 5px 5px rgba(0,0,0,0.4);
     display: flex;
@@ -106,8 +108,8 @@ header p {
 
 .article-links a {
     line-height: 2.8rem;
-    text-decoration: underline;
-    color: rgb(34, 110, 136);
+    /* text-decoration: underline; */
+    color: #779FA1;
     margin-left: 1rem;
     font-size: 1.7rem;
 }
@@ -126,8 +128,12 @@ header p {
     margin: 1rem;
 }
 
+.article-count::before {
+    content: 'Articles: ';
+}
+
 .news-source {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Roboto Slab', serif;
     font-size: 2.8rem;
     font-weight: bold;
 }
@@ -147,6 +153,7 @@ header p {
 .sentiment-score {
     border-radius: 50%;
     border: .3rem solid rgba(0,0,0,0.4);
+    color: #151515;
     padding: 1.3rem;
     background-color: green;
     font-size: 3rem;
@@ -188,7 +195,7 @@ header p {
 
 .form-section h2 {
     font-size: 3.6rem;
-    font-family: 'Playfair Display', serif;
+    font-family: 'Roboto Slab', serif;
     font-weight: 400;
     margin-bottom: 3.5rem;
     background-color: #252422;
@@ -233,11 +240,10 @@ input[type="text"] {
     padding: .8rem;
     border-radius: .2rem;
     border: none;
-    background-color: #CCC5B9;
+    background-color: rgb(255, 255, 255);
     color: #252422;
-    font-family: 'Fauna One', serif;
-    border: .2rem solid #C1B098;
-    border-bottom: .4rem solid #C1B098;
+    font-family: 'Lato', serif;
+    border: .2rem solid rgb(69, 157, 187);
     width: 75%;
     font-size: 1.8rem;
 }
@@ -246,7 +252,6 @@ input[type="text"]:focus {
     outline: none;
     background-color: #40798C;
     color: #fff;
-    border-bottom: .3rem solid #C1B098;
 }
 
 .flex-outer li,
@@ -318,15 +323,15 @@ input[type="radio"]:checked + .label:after {
 }
 
 .red {
-    background-color: red;
+    background-color: #E63946;
 }
 
 .green {
-    background-color: green;
+    background-color: #73A580;
 }
 
 .yellow {
-    background-color: yellow;
+    background-color: #F9DC5C;
 }
 
 
@@ -339,7 +344,7 @@ input[type="radio"]:checked + .label:after {
     }
 
     .container-startpage {
-        padding-top: 25vh;
+        padding-top: 12vh;
     }
 }
 
@@ -347,6 +352,11 @@ input[type="radio"]:checked + .label:after {
     header {
         margin-right: 3rem;
     }
+
+    .form-section {
+        padding-top: 7vh;
+    }
+
     .container-startpage {
         display: flex;
         align-items: flex-start;
