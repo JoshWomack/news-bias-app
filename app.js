@@ -1,11 +1,9 @@
-/*stores booleans used in determining which view to render*/
 const RENDER = {
     startPage: true,
     resultsPage: false,
     noResultsPage: false
 }
 
-/*checks values in RENDER to determine which view to render*/
 function render() {
     if (RENDER.startPage) {
         renderStartPage();
@@ -16,41 +14,30 @@ function render() {
     }
 }
 
-/*renders home page*/
 function renderStartPage() {
     $("body").html(STORE.startPage);
 }
 
-/*renders search results page*/
 function renderResultsPage() {
     $("body").html(STORE.resultsPage);
 }
 
-/*renders message to indicated no results were returned from the search*/
 function renderNoResultsPage() {
     $("body").html(STORE.noResultsPage);
 }
 
-/*calls functions that add event listners*/
 function addEventListeners() {
     handleFormSubmission();
     handleNewSearchButtonClick();
     handleArticleLinkExpansion();
 }
 
-
-/*listens for submission of search form*/
 function handleFormSubmission() {
     $("body").on("submit", "#newsSearchForm", e => {
         e.preventDefault();
-        /*get and store values input in search form*/
         updateSearchValues();
-        /*pass input values to a function that formarts them as pararemeters for fetch request*/
         const params = formatQueryParams(STORE.searchCriteria);
-        /*passing formated parameters to function that calls the News API*/
         getNewsData(params);
-
-        /*set render result page to true and other views to false in order to display results*/
         RENDER.startPage = false;
         RENDER.noResultsPage = false;
         RENDER.resultsPage = true;
@@ -69,13 +56,12 @@ function handleNewSearchButtonClick() {
 
 function handleArticleLinkExpansion() {
     $("body").on("click", ".result-container", e => {
-        $(e.currentTarget).children(':nth-child(2)').toggleClass("hidden");
+        $(e.currentTarget).children(":nth-child(2)").toggleClass("hidden");
     })
 };
 
-
 function getNewsData(params) {
-    const url = 'https://newsapi.org/v2/everything?' + params
+    const url = "https://newsapi.org/v2/everything?" + params
     fetch(url)
         .then(response => response.json())
         .then(response => {
@@ -131,15 +117,15 @@ function getFrequency(arr) {
     arr.forEach(item => {
         if (Object.keys(freqObj).some(property => property === item.id)) {
             freqObj[item.id] = {
-                'source': item.id,
-                'score': parseFloat(item.score) + parseFloat(freqObj[item.id].score),
-                'frequency': freqObj[item.id].frequency += 1
+                "source": item.id,
+                "score": parseFloat(item.score) + parseFloat(freqObj[item.id].score),
+                "frequency": freqObj[item.id].frequency += 1
             }
         } else {
             freqObj[item.id] = {
-                'source': item.id,
-                'score': parseFloat(item.score),
-                'frequency': 1
+                "source": item.id,
+                "score": parseFloat(item.score),
+                "frequency": 1
             }
         }
     })
@@ -200,7 +186,7 @@ function appendResults(sources) {
             colorClass = "green";
         }
 
-        $('.results-containers').append(`<div class="result-container">
+        $(".results-containers").append(`<div class="result-container">
         <div class="result">
             <div>
                 <p class="news-source">${source.source}</p>
@@ -218,19 +204,17 @@ function appendResults(sources) {
     })
 };
 
-
 function formatQueryParams(params) {
     const queryItems = Object.keys(params)
         .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
-    return queryItems.join('&');
+    return queryItems.join("&");
 }
 
 function updateSearchValues() {
-    STORE.searchCriteria.q = $('#term-input').val();
-    STORE.searchCriteria.pagesize = '100';
-    STORE.displayContent = $('input:radio[name=display-option]:checked').val();
+    STORE.searchCriteria.q = $("#term-input").val();
+    STORE.searchCriteria.pagesize = "100";
+    STORE.displayContent = $("input:radio[name=display-option]:checked").val();
 }
-
 
 $(function () {
     addEventListeners();
