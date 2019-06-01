@@ -12,10 +12,10 @@ Visit our [live app](https://joshwomack.github.io/slanted-headlines/) to try out
 ## Screen Shots
 ### Home Page
 
-![Slanted headlines homepage](/images/homepage.png)
+![Slanted headlines homepage](https://raw.githubusercontent.com/JoshWomack/slanted-headlines/master/images/homepage.PNG)
 ### Results Page
 
-![Slanted headlines results page](/images/resultspage.png)
+![Slanted headlines results page](https://raw.githubusercontent.com/JoshWomack/slanted-headlines/master/images/resultspage.PNG)
 
 ## Summary
 
