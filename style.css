@@ -386,3 +386,14 @@ input[type="radio"]:checked+.label:after {
     }
 
 }
+
+@media screen and (max-width: 425px) {
+    header {
+        width: 100vw;
+    }
+
+    h1 {
+        font-size: 18vw;
+        line-height: 15vw;
+    }
+}
